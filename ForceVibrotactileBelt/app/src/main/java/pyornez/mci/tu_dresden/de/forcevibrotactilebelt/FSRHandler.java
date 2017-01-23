@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class FSRHandler {
     private TextView fsr1, fsr2, fsr3, fsr4, fsr5, fsr6, fsr7, fsr8, roll, pitch, yaw, target;
-    private long millis;
+    private long millis; //timestamp = milliseconds beginning from powering the arduino
     private Activity activity;
     private String message = "";
     private static final String FSR_TAG = "FSR";
@@ -17,6 +17,7 @@ public class FSRHandler {
     private boolean ready=false;
 
     public FSRHandler(Activity activity) {
+        //initiation of the apps changing textviews
         this.activity = activity;
         this.fsr1 = ((TextView) activity.findViewById(R.id.fsr1));
         this.fsr2 = ((TextView) activity.findViewById(R.id.fsr2));
@@ -31,9 +32,15 @@ public class FSRHandler {
         this.yaw = ((TextView) activity.findViewById(R.id.yaw_field));
     }
 
+    /**
+     * handling of a obtained bluetooth message
+     * @param msg - obtained message
+     * @return true - successful handling of the message
+     */
     public boolean obtainMessage(String msg) {
         ready=false;
         message = msg;
+        //handle messages from imu Bsp: YPR:50.80,25.25,-18.21
         if (msg.charAt(0) == 'Y') {
             imu1 = msg.indexOf(",");
             imu2 = msg.indexOf(",", imu1 + 1);
@@ -53,8 +60,13 @@ public class FSRHandler {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } else {
+        }
+        //handle messages from FSRs Bsp: 0250(FSR:02, Value:50)
+        //imu data can be read similarly but the Arduino implementation to construct the fitting
+        // messages is circumstantial and needs much time to run
+        else {
             try {
+                //assignment of the Textview which is to be changed
                 switch (Integer.parseInt(msg.substring(0, 2))) {
                     case 1:
                         target = fsr1;
@@ -96,6 +108,7 @@ public class FSRHandler {
             } catch (NumberFormatException e){
                 return false;
             }
+            //timestamp
             millis=Long.parseLong(message.substring(message.indexOf(",")+1));
             System.out.println(millis);
 
@@ -105,6 +118,7 @@ public class FSRHandler {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            //changing of the targets value
                             target.setText(message.substring(2,message.indexOf(",")));
                             ready=true;
                         }
@@ -123,6 +137,10 @@ public class FSRHandler {
         return true;
     }
 
+    /**
+     * indicates if the thread rewriting a textviews value is occupied
+     * @return false if occupied, true if not
+     */
     public boolean isReady(){
         return ready;
     }

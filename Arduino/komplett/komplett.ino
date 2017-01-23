@@ -10,7 +10,7 @@ String tag[8] ={"01", "02", "03", "04", "05", "06", "07", "08"};
 
 int LED_status = HIGH;
 int pressure;
-int current;
+int currentfsr;
 
 String n="#";
 String comma=",";
@@ -30,8 +30,8 @@ void setup() {
 void loop() {
   //fsr read
   for(int i=0; i<8; i++){
-    current=fsr[i];
-    pressure = analogRead(current);
+    currentfsr=fsr[i];
+    pressure = analogRead(currentfsr);
     if(pressure>20){
       singleMsg= tag[i]+pressure+comma+millis()+n;
       msg+=singleMsg;
@@ -50,7 +50,6 @@ void loop() {
   msg="";
   delay(200);
 
-  
   //imu read
   if (RAZOR.available()){
     while(RAZOR.available()>0){
@@ -76,64 +75,6 @@ void loop() {
       }
     }
   }
-  /*
-  if (RAZOR.available()){
-    while(RAZOR.available()>0){
-      imuchar=RAZOR.read();
-      if(imuchar=='='){
-        //1st
-        writeString(s11);
-        Serial.print(s11);
-        while(RAZOR.available()>0){
-          imuchar=RAZOR.read();
-          if(imuchar==','){
-            writeString(n);
-            Serial.print(n);
-            //2nd
-            writeString(s10);
-            Serial.print(s10);
-            while(RAZOR.available()>0){
-              imuchar=RAZOR.read();
-              if(imuchar==','){
-                writeString(n);
-                Serial.print(n);
-                //3rd
-                writeString(s9);
-                Serial.print(s9);
-                while(RAZOR.available()>0){
-                  imuchar=RAZOR.read();
-                  if(imuchar=='#'){
-                    while(RAZOR.available()>0){
-                      imuchar=RAZOR.read();
-                    }
-                    return;
-                  }
-                  else{
-                    BLUE.write(imuchar);
-                    Serial.print(imuchar);
-                  }
-                }                
-              }
-              else{
-                BLUE.write(imuchar);
-                Serial.print(imuchar);
-              }
-            }
-            
-          }
-          else{
-            BLUE.write(imuchar);
-            Serial.print(imuchar);
-          }
-        }
-      }
-      while(RAZOR.available()>0){
-        RAZOR.read();   
-      }
-      
-    }
-  }
-  */
   digitalWrite(PIN_STATUS,LED_status);
   delay(150);
 }

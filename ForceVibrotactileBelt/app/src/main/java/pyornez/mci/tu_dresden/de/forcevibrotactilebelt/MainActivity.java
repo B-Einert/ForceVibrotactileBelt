@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private static String mac_adresse ="20:16:04:20:86:36"; // MAC Adresse des Bluetooth Adapters
     private FSRReceiveThread mFSRReceiveThread;
     private FSRHandler fsrHandler;
-    private String inputMessage;
-    private Boolean blueActive=false;
+    private Boolean blueActive=false; //stops the bluetooth reception thread when set false
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * disconnection of bluetooth
+     */
     private void fsrDisconnect() {
         blueActive=false;
         if (fsrConnected && stream_out != null) {
@@ -155,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(BLUE_TAG, "Trennen: Keine Verbindung zum beenden");
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -162,6 +165,10 @@ public class MainActivity extends AppCompatActivity {
         fsrDisconnect();
     }
 
+
+    /**
+     * start a new Thread receiving the bluetooth data
+     */
     private void receiveData(){
         blueActive=true;
         mFSRReceiveThread = new FSRReceiveThread(socket);
@@ -169,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Thread for receiving bluetooth signals
+     */
     private class FSRReceiveThread extends Thread{
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
@@ -188,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             Log.i(BLUE_TAG, "BEGIN mFSRReceiveThread");
             byte[] buffer = new byte[1024];
-            int bytes;
             String msg="";
             int length;
             // Keep listening to the InputStream while connected
@@ -197,12 +206,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (mmInStream.available() > 0) {
                         length = mmInStream.read(buffer);
-                        // Message zusammensetzen:
-
+                        //put together the message
                         for (int i = 0; i < length; i++) {
                             if ((char) buffer[i] == '#') {
                                 if (!msg.isEmpty()) {
                                     Log.i(BLUE_TAG, "Message: " + msg);
+                                    //handle message
                                     fsrHandler.obtainMessage(msg);
                                     msg = "";
                                 }
@@ -212,16 +221,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 } catch (Exception e) {
-                    //Log.e(BLUE_TAG, "Fehler beim Empfangen: " + e.toString());
+                    Log.e(BLUE_TAG, "Fehler beim Empfangen: " + e.toString());
                 }
-            }
-        }
-
-        public void cancel() {
-            try {
-                mmSocket.close();
-            } catch (IOException e) {
-                Log.e(BLUE_TAG, "close() of connect socket failed", e);
             }
         }
     }
