@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="pyornez.mci.tu_dresden.de.forcevibrotactilebelt.MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vibConnect"
+        android:id="@+id/btnVibrCon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fsr_connect"
+        android:id="@+id/btnFsrCon"
+        android:onClick="fsrConnect"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="roll:"
+        android:id="@+id/textRoll"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:textColor="?android:attr/colorForeground" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pitch:"
+        android:id="@+id/textPitch"
+        android:layout_alignTop="@+id/textRoll"
+        android:layout_toEndOf="@+id/textRoll"
+        android:textColor="?android:attr/colorForeground"
+        android:layout_marginStart="100dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="yaw:"
+        android:id="@+id/textYaw"
+        android:layout_alignTop="@+id/textRoll"
+        android:layout_toEndOf="@id/textPitch"
+        android:layout_marginStart="80dp"
+        android:textColor="?android:attr/colorForeground" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/fsr7"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/elypse"
+        android:id="@+id/relativeLayout"
+        android:layout_below="@+id/btnVibrCon"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:id="@+id/b3"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:elevation="0dp"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:id="@+id/b5"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7"
+            android:id="@+id/b7"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:id="@+id/b1"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8"
+            android:id="@+id/b8"
+            android:layout_alignTop="@+id/b6"
+            android:layout_alignStart="@+id/b2"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:id="@+id/b6"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_alignStart="@+id/b4"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:id="@+id/b4"
+            android:layout_alignTop="@+id/b2"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:id="@+id/b2"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="?attr/colorButtonNormal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/fsr3"
+            android:layout_below="@+id/b3"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/fsr4"
+            android:layout_below="@+id/b4"
+            android:layout_alignStart="@+id/b4"
+            android:layout_marginStart="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/fsr5"
+            android:layout_below="@+id/b5"
+            android:layout_alignStart="@+id/b5"
+            android:layout_marginStart="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/fsr8"
+            android:layout_below="@+id/b8"
+            android:layout_alignStart="@+id/b8"
+            android:layout_marginStart="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/fsr1"
+            android:layout_below="@+id/b1"
+            android:layout_alignStart="@+id/b1"
+            android:layout_marginStart="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/fsr2"
+            android:layout_below="@+id/b2"
+            android:layout_alignStart="@+id/b2"
+            android:layout_marginStart="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/fsr6"
+            android:layout_below="@+id/b8"
+            android:layout_alignStart="@+id/b4"
+            android:layout_marginStart="20dp"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textRoll"
+        android:layout_toEndOf="@+id/textRoll"
+        android:id="@+id/roll_field"
+        android:textAlignment="viewStart"
+        android:text="0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pitch_field"
+        android:textAlignment="viewStart"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textPitch"
+        android:text="0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yaw_field"
+        android:textAlignment="viewStart"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textYaw"
+        android:text="0" />
+
+</RelativeLayout>
