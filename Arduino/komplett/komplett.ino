@@ -4,7 +4,7 @@
 #define PIN_STATUS 13   //status led   
   
 //fsr initialization (analog pins start at 54)
-int fsr[8] = {61, 63, 54, 55, 56, 57, 58, 64};
+int fsr[8] = {54, 55, 56, 59, 61, 62, 64, 65};
 bool fsrzero[8] ={true, true, true, true, true, true, true, true};
 String tag[8] ={"01", "02", "03", "04", "05", "06", "07", "08"};
 
